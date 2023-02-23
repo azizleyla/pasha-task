@@ -2,7 +2,7 @@ import { Button, Modal, Table } from 'antd';
 import { useState } from 'react';
 import StatusDropdown from '../dropdown/StatusDropdown';
 import Sidebar from '../sidebar/Sidebar';
-
+import { PlusOutlined } from "@ant-design/icons"
 
 
 
@@ -10,32 +10,29 @@ import Sidebar from '../sidebar/Sidebar';
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    status:'testiqlenib'
+    qaime_no: 32,
+    customer: 'John Brown',
+    product_count: 3,
+    total: 150,
+    status: 'təsdiqlənib'
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    status:'legv edilib'
+    qaime_no: 30,
+    customer: 'Ali Alies',
+    product_count: 4,
+    total: 250,
+    status: 'gözləyir'
   },
   {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    status:'gozlemededir'
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
-  },
-  
+    key: 3,
+    qaime_no: 1234,
+    customer: "Bob Brown",
+    product_count: 5,
+    total: 300,
+    status: "xitam olunub"
+  }
+
 ];
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
@@ -43,102 +40,83 @@ const onChange = (pagination, filters, sorter, extra) => {
 
 
 const TableList = () => {
-    const [isOpenStatusModal,setIsOpenStatusModal] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpenStatusModal, setIsOpenStatusModal] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const columns = [
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          filters: [
-            {
-              text: 'Joe',
-              value: 'Joe',
-            },
-            {
-              text: 'Category 1',
-              value: 'Category 1',
-            },
-            {
-              text: 'Category 2',
-              value: 'Category 2',
-            },
-          ],
-          filterMode: 'tree',
-          filterSearch: true,
-          onFilter: (value, record) => record.name.startsWith(value),
-          width: '30%',
-        },
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          sorter: (a, b) => a.age - b.age,
-        },
-        {
-          title:"Status",
-          dataIndex:"status",
-          render:(value) =>{
-            return (
-                <StatusDropdown text={value} isOpenStatusModal={isOpenStatusModal} setIsOpenStatusModal={setIsOpenStatusModal}/>
-            )
-      
-          }
-        },
-        {
-          title: 'Address',
-          dataIndex: 'address',
-          filters: [
-            {
-              text: 'London',
-              value: 'London',
-            },
-            {
-              text: 'New York',
-              value: 'New York',
-            },
-          ],
-          onFilter: (value, record) => record.address.startsWith(value),
-          filterSearch: true,
-          width: '40%',
-        },
-        {
-          title:"action",
-          render: () => 
-              <div className='action-btns'>
-              <Button danger onClick={() => handleDelete()} >Delete</Button>
-              <Button success>Edit</Button>
-              </div>
-          
-        }
-      ];
- 
+  const columns = [
+    {
+      title: 'Qaimə №',
+      dataIndex: 'qaime_no',
+      sorter: (a, b) => a.qaime_no - b.qaime_no
+    },
+    {
+      title: 'Müştəri',
+      dataIndex: 'customer',
+      sorter: (a, b) => a.customer?.localeCompare(b.customer),
 
-    const handleDelete = () =>{
-        setIsModalOpen(true)
-    }
+    },
+    {
+      title: "Məhsul sayı",
+      dataIndex: "product_count",
+      sorter: (a, b) => a.product_count - b.product_count
+    },
+    {
+      title: 'Toplam məbləğ',
+      dataIndex: 'total',
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-        //send delete request
-      };
-    
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
-   
-      const handleOkStatusModal = () =>{
-        setIsOpenStatusModal(false)
+      sorter: (a, b) => a.total - b.total
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (value) => {
+        return (
+
+          <StatusDropdown text={value} isOpenStatusModal={isOpenStatusModal} setIsOpenStatusModal={setIsOpenStatusModal} />
+        )
+
       }
+    },
+    {
+      title: "action",
+      render: () =>
+        <div className='action-btns'>
+          <Button danger onClick={() => handleDelete()} >Delete</Button>
+          <Button success>Edit</Button>
+        </div>
+
+    }
+  ];
+
+
+  const handleDelete = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    //send delete request
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+
 
   return (
-    <div style={{width:"100%"}}>
-        <Button type="primary" style={{display:"flex",justifyContent:'flexEnd',marginLeft:'auto',marginBottom:'20px'}}>Yeni Qaime +</Button>
-         <Table columns={columns} dataSource={data} onChange={onChange} />
-         <Modal open={isModalOpen} onCancel={handleCancel} onOk={handleOk}>
-         <p>Bu qaiməni silmək istədiyinizdən əminsiniz?</p>
-         </Modal>
-        
-     
+    <div className='table-container'>
+      <Button type="primary" className='add-btn'>
+        <PlusOutlined />  Yeni Qaime </Button>
+      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Modal open={isModalOpen} onCancel={handleCancel} footer={[
+        <Button key="1">İmtina</Button>,
+        <Button key="2" type='primary'>Sil</Button>,
+      ]} onOk={handleOk}>
+        <p>Bu qaiməni silmək istədiyinizdən əminsiniz?</p>
+      </Modal>
+
+
     </div>
   )
 }
