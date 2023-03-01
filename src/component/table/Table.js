@@ -6,7 +6,6 @@ import { PlusOutlined } from "@ant-design/icons"
 
 
 
-
 const data = [
   {
     key: '1',
@@ -37,6 +36,11 @@ const data = [
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
+const statusMap = {
+  "təsdiqlənib": "submit",
+  "xitam olunub": "cancelled",
+  "gözləyir": "waited"
+}
 
 
 const TableList = () => {
@@ -69,21 +73,14 @@ const TableList = () => {
     {
       title: "Status",
       dataIndex: "status",
-      render: (value) => {
-        return (
+      render: (value) =>
+        <p className={`status-btn ${statusMap[value]}`}>{value}</p>
 
-          <StatusDropdown text={value} isOpenStatusModal={isOpenStatusModal} setIsOpenStatusModal={setIsOpenStatusModal} />
-        )
-
-      }
     },
     {
       title: "action",
       render: () =>
-        <div className='action-btns'>
-          <Button danger onClick={() => handleDelete()} >Delete</Button>
-          <Button success>Edit</Button>
-        </div>
+        <StatusDropdown isOpenStatusModal={isOpenStatusModal} setIsOpenStatusModal={setIsOpenStatusModal} />
 
     }
   ];

@@ -1,31 +1,33 @@
+import { DeleteOutlined, EditOutlined, PrinterOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu, Space } from 'antd';
 
 
+import { BsThreeDotsVertical } from "react-icons/bs"
 
 const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
   const items = [
     {
       key: '1',
       label: (
-        <p className='status-btn submit'>
-          təsdiqlənib
-        </p>
+        <button className='action-btn'>
+          <EditOutlined /> Düzəliş et
+        </button>
       ),
     },
     {
       key: '2',
       label: (
-        <p className='status-btn waited'>
-          gözləyir
-        </p>
+        <button className='action-btn'>
+          <DeleteOutlined />  Sil
+        </button>
       ),
     },
     {
       key: '3',
       label: (
-        <p onClick={() => setIsOpenStatusModal(true)} className='status-btn cancelled'>
-          xitam olunub
-        </p>
+        <button className='action-btn'>
+          <PrinterOutlined /> Statusu dəyiş
+        </button>
       ),
     },
     {
@@ -43,6 +45,7 @@ const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
   }
   return (
 
+
     <Space direction="vertical">
       <Space wrap>
         <Dropdown
@@ -54,7 +57,9 @@ const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
           placement="bottomLeft"
         >
 
-          <button className={`status-btn ${text === "təsdiqlənib" ? 'submit' : text === "xitam olunub" ? "cancelled" : "waited"}`} onClick={() => setIsOpenStatusModal(!isOpenStatusModal)}>{text}</button>
+          <button style={{ background: "transparent", border: "none", cursor: "pointer" }} onClick={() => setIsOpenStatusModal(!isOpenStatusModal)}>
+            <BsThreeDotsVertical />
+          </button>
         </Dropdown>
 
       </Space>
