@@ -4,7 +4,8 @@ import { Button, Dropdown, Menu, Space } from 'antd';
 
 import { BsThreeDotsVertical } from "react-icons/bs"
 
-const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
+const DeleteModal = ({ value, setIsOpenDeleteModal, isOpenDeleteModal,onDelete,setIsOpenStatusModal,setSelectedItem }) => {
+  console.log(value)
   const items = [
     {
       key: '1',
@@ -17,7 +18,7 @@ const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
     {
       key: '2',
       label: (
-        <button className='action-btn'>
+        <button onClick={onDelete} className='action-btn'>
           <DeleteOutlined />  Sil
         </button>
       ),
@@ -25,23 +26,19 @@ const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
     {
       key: '3',
       label: (
-        <button className='action-btn'>
+        <button className='action-btn' onClick={() => {
+          setIsOpenStatusModal(true)
+          setSelectedItem(value)
+        
+        }}>
           <PrinterOutlined /> Statusu dəyiş
         </button>
       ),
-    },
-    {
-      key: '4',
-      label: (
-        <div style={{ marginTop: "20px" }}>
-          <Button>İmtina</Button>
-          <Button type='primary' style={{ marginLeft: "10px" }}>Təsdiqlə</Button>
-        </div>
-      )
     }
+  
   ];
   const handleClick = () => {
-    setIsOpenStatusModal(false)
+    setIsOpenDeleteModal(false)
   }
   return (
 
@@ -57,7 +54,7 @@ const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
           placement="bottomLeft"
         >
 
-          <button style={{ background: "transparent", border: "none", cursor: "pointer" }} onClick={() => setIsOpenStatusModal(!isOpenStatusModal)}>
+          <button style={{ background: "transparent", border: "none", cursor: "pointer" }} onClick={() => setIsOpenDeleteModal(!isOpenDeleteModal)}>
             <BsThreeDotsVertical />
           </button>
         </Dropdown>
@@ -68,4 +65,4 @@ const StatusDropdown = ({ text, setIsOpenStatusModal, isOpenStatusModal }) => {
 
 
 };
-export default StatusDropdown;
+export default DeleteModal;

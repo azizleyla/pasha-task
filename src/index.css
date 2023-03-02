@@ -98,8 +98,8 @@ body, .ant-table {
   padding: 20px;
 }
 
-.ant-dropdown-menu {
-  padding: 20px !important;
+.ant-dropdown-menu-title-content{
+  flex: none!important;
 }
 
 .add-btn {
@@ -123,16 +123,18 @@ body, .ant-table {
   line-height: 20px;
   /* identical to box height, or 143% */
   padding: 14px 5px;
-
+cursor: pointer;
   width: 100%;
   gap: 5px;
   color: #5F646E;
-  border-bottom: 2px solid #f1f1f1;
+ 
 }
 
 .ant-dropdown-menu-item {
   padding: 0 !important;
   padding: 0 !important;
+  border-bottom:1px solid #efefef;
+  border-radius: 0!important;
 }
 
 .ant-dropdown-menu {
@@ -142,5 +144,21 @@ body, .ant-table {
 
 
 .action-btn svg {
-  font-size: 25px;
+  font-size: 22px;
+}
+.sidebar{
+  background: #266AEB;
+   border-radius: 16px;
+   padding: 20px;
+}
+.sidebar ul {
+  list-style: none;
+  text-decoration: none;
+}
+.sidebar ul li{
+  padding: 10px 0;
+}
+.status-modal-container .ant-modal-content{
+width: 250px!important;
+
 }

@@ -1,0 +1,44 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "productId": 12345,
+      "fullName": "Dadaşov Allahverdi",
+      "productCount": 3,
+      "status": "xitam olunub",
+      "totalPrice": 900
+    },
+    {
+      "id": 2,
+      "productId": 12346,
+      "fullName": "Qasımov Elməddin",
+      "productCount": 7,
+      "status": "təsdiqlənib",
+      "totalPrice": 1000
+    },
+    {
+      "id": 3,
+      "productId": 22346,
+      "fullName": "Bağırova Arzu",
+      "productCount": 4,
+      "status": "xitam olunub",
+      "totalPrice": 1400
+    },
+    {
+      "id": 4,
+      "productId": 12456,
+      "fullName": "Solmaz Aziz",
+      "productCount": 5,
+      "status": "gözləyir",
+      "totalPrice": 1200
+    },
+    {
+        "id": 5,
+        "productId": 12456,
+        "fullName": "Ali Aliyev",
+        "productCount": 2,
+        "status": "gözləyir",
+        "totalPrice": 1200
+      }
+  ]
+}

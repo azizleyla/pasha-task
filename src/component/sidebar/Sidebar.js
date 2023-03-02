@@ -1,39 +1,46 @@
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
-import React from 'react';
-import TableList from '../table/Table';
-const { Header, Content, Footer, Sider } = Layout;
-const Sidebar = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  return (
-    <Layout>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['4']}
-          items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-            (icon, index) => ({
-              key: String(index + 1),
-              icon: React.createElement(icon),
-            }),
-          )}
-        />
-      </Sider>
+import React from 'react'
+import Icon1 from "../../assets/img/Vector.svg"
+import Icon2 from "../../assets/img/Vector.png"
+import Icon3 from "../../assets/img/Vector (2).svg"
+import Icon4  from "../../assets/img/Vector (3).svg";
+import Icon5  from "../../assets/img/Vector (4).svg";
+import Icon6  from "../../assets/img/Vector (5).svg";
+import Icon7  from "../../assets/img/Vector7.svg";
+import Icon8 from "../../assets/img/vector6.svg";
 
-    </Layout>
-  );
-};
-export default Sidebar;
+const Sidebar = () => {
+  return (
+    <div className='sidebar'>
+      <nav>
+        <ul>
+          <li>
+         <img src={Icon1} alt=""/>
+          </li>
+          <li>
+         <img src={Icon2} alt=""/>
+          </li>
+          <li>
+         <img src={Icon3} alt=""/>
+          </li>
+          <li>
+         <img src={Icon4} alt=""/>
+          </li>
+          <li>
+         <img src={Icon5} alt=""/>
+          </li>
+          <li>
+         <img src={Icon6} alt=""/>
+          </li>
+          <li>
+         <img src={Icon7} alt=""/>
+          </li>
+          <li>
+         <img src={Icon8} alt=""/>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  )
+}
+
+export default Sidebar
