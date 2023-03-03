@@ -3,91 +3,47 @@
     {
       "id": 1,
       "productId": 12345,
+      "products": [
+        {
+          "id": 1,
+          "productCount": 2,
+          "productName": "alma",
+          "price": 3,
+          "totalPrice": 0
+        },
+        {
+          "id": 2,
+          "productCount": 3,
+          "productName": "duyu",
+          "price": 4,
+          "totalPrice": 0
+        }
+      ],
       "fullName": "Dadaşov Allahverdi",
-      "productCount": 3,
-      "status": "xitam olunub",
-      "totalPrice": 900
+      "status": "xitam olunub"
     },
     {
       "id": 2,
       "productId": 12346,
       "fullName": "Qasımov Elməddin",
-      "productCount": 7,
       "status": "təsdiqlənib",
-      "totalPrice": 1000
-    },
-    {
-      "id": 3,
-      "productId": 22346,
-      "fullName": "Bağırova Arzu",
-      "productCount": 4,
-      "status": "xitam olunub",
-      "totalPrice": 1400
-    },
-    {
-      "id": 4,
-      "productId": 12456,
-      "fullName": "Solmaz Aziz",
-      "productCount": 5,
-      "status": "gözləyir",
-      "totalPrice": 1200
-    },
-    {
-      "id": 5,
-      "productId": 12456,
-      "fullName": "Ali Aliyev",
-      "productCount": 2,
-      "status": "xitam olunub",
-      "totalPrice": 1200
-    },
-    {
-      "id": 6,
-      "productId": 72346,
-      "fullName": "Musayeva Aytac",
-      "productCount": 7,
-      "status": "təsdiqlənib",
-      "totalPrice": 1700
-    },
-    {
-      "id": 7,
-      "productId": 82346,
-      "fullName": "Mamedov Ahmad",
-      "productCount": 4,
-      "status": "xitam olunub",
-      "totalPrice": 1400
-    },
-    {
-      "id": 8,
-      "productId": 22456,
-      "fullName": "Hasanova Xanim",
-      "productCount": 5,
-      "status": "gözləyir",
-      "totalPrice": 1200
-    },
-    {
-      "id": 9,
-      "productId": 12456,
-      "fullName": "Ibrahimov Murad",
-      "productCount": 2,
-      "status": "xitam olunub",
-      "totalPrice": 1200
-    },
-    {
-      "id": 10,
-      "productId": 82456,
-      "fullName": "Ibrahimova Aydan",
-      "productCount": 2,
-      "status": "xitam olunub",
-      "totalPrice": 1200
-    },
-    {
-      "id": 11,
-      "productId": 82456,
-      "fullName": "Abiyeva Elvira",
-      "productCount": 2,
-      "status": "xitam olunub",
-      "totalPrice": 1200
+      "totalPrice": 1000,
+      "products": [
+        {
+          "id": 1,
+          "productCount": 2,
+          "productName": "alma",
+          "price": 3,
+          "totalPrice": 0
+        },
+        {
+          "id": 2,
+          "productCount": 3,
+          "productName": "duyu",
+          "price": 4,
+          "totalPrice": 0
+        }
+      ]
     }
-    
   ]
 }

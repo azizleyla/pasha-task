@@ -52,8 +52,8 @@ body, .ant-table {
 }
 
 .container {
-  max-width: 1300px;
-  margin: 100px auto;
+  max-width: 1400px;
+  margin: 30px auto;
 }
 
 .action-btns {
@@ -104,10 +104,27 @@ body, .ant-table {
 
 .add-btn {
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: auto;
   margin-bottom: 20px;
+  color:white;
+  width: 150px;
+  padding: 10px 0;
   align-items: center;
   background: #266AEB !important;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.title{
+  font-weight: 600;
+font-size: 20px;
+line-height: 22px;
+/* identical to box height, or 110% */
+margin-bottom: 20px;
+
+color: #266AEB;
+
 }
 
 .ant-modal-body p {
@@ -185,4 +202,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.ant-select-selector{
+  height: 40px!important;
 }

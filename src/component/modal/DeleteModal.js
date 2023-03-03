@@ -3,14 +3,20 @@ import { Button, Dropdown, Menu, Space } from 'antd';
 
 
 import { BsThreeDotsVertical } from "react-icons/bs"
+import { Link, useNavigate } from 'react-router-dom';
 
-const DeleteModal = ({ value, setIsOpenDeleteModal, isOpenDeleteModal,onDelete,setIsOpenStatusModal,setSelectedItem }) => {
-  console.log(value)
+const DeleteModal = ({ value, setIsOpenDeleteModal,selectedItem, isOpenDeleteModal,onDelete,setIsOpenStatusModal,setSelectedItem }) => {
+  const navigate = useNavigate()
+const handleNavigate = () =>{
+   navigate(`/edit/${value.id}`,{
+    state:value
+   })
+}
   const items = [
     {
       key: '1',
       label: (
-        <button className='action-btn'>
+        <button onClick={handleNavigate} to={`/edit/${value.id}`} className='action-btn'>
           <EditOutlined /> Düzəliş et
         </button>
       ),

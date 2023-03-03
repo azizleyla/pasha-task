@@ -6,11 +6,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ApiQueryKeys } from '../../constants/api.constants';
 import { CustomerApi } from '../../api/customers.api';
 import StatusModal from '../modal/StatusModal';
+import { Link } from 'react-router-dom';
 
 const { Search } = Input
 
 const onChange = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
+
 };
 const statusMap = {
   "təsdiqlənib": "submit",
@@ -85,7 +86,7 @@ const TableList = () => {
     {
       title: "action",
       render: (value) =>
-        <DeleteModal onDelete={() => handleDelete(value)} value={value} setSelectedItem={setSelectedItem} setIsOpenStatusModal={setIsOpenStatusModal} isOpenDeleteModal={isOpenDeleteModal} setIsOpenDeleteModal={setIsOpenDeleteModal} />
+        <DeleteModal onDelete={() => handleDelete(value)} value={value} setSelectedItem={setSelectedItem} selectedItem={selectedItem} setIsOpenStatusModal={setIsOpenStatusModal} isOpenDeleteModal={isOpenDeleteModal} setIsOpenDeleteModal={setIsOpenDeleteModal} />
 
     }
   ];
@@ -114,12 +115,12 @@ const TableList = () => {
 
 
   const onChange = (pageNumber) => {
-    console.log('Page: ', pageNumber);
+
   };
   return (
     <div className='table-container'>
-      <Button type="primary" className='add-btn'>
-        <PlusOutlined />  Yeni Qaime </Button>
+      <Link to="/create"  type="primary" className='add-btn'>
+        <PlusOutlined />  Yeni Qaime </Link>
 
 
       <Search onChange={(e) => setSearchQuery(e.target.value)}
