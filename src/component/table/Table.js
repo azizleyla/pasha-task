@@ -30,12 +30,13 @@ const TableList = () => {
   const { data } = useQuery({
     queryKey: [ApiQueryKeys.customers],
     queryFn: () => CustomerApi.getAll(),
-    keepPreviousData: true
+
   })
 
   const [customers, setCustomers] = useState(data || [])
 
   const queryClient = useQueryClient()
+  console.log('dddd', data)
   const handleDeleteMutation = useMutation(CustomerApi.deleteCustomer, {
     onSuccess: () => {
       queryClient.invalidateQueries([ApiQueryKeys.customers])
@@ -67,14 +68,19 @@ const TableList = () => {
     },
     {
       title: "Məhsul sayı",
-      dataIndex: "productCount",
-      sorter: (a, b) => a.productCount - b.productCount
+      dataIndex: "products",
+      render: (value) =>
+        <p>{value.reduce((a, c) => a + c.productCount, 0)}</p>
+
     },
     {
       title: 'Toplam məbləğ',
-      dataIndex: 'totalPrice',
+      dataIndex: "products",
+      render: (value) =>
+        <p>{value?.reduce((a, c) => a + c.total, 0)}</p>
 
-      sorter: (a, b) => a.totalPrice - b.totalPrice
+
+
     },
     {
       title: "Status",
@@ -119,7 +125,7 @@ const TableList = () => {
   };
   return (
     <div className='table-container'>
-      <Link to="/create"  type="primary" className='add-btn'>
+      <Link to="/create" type="primary" className='add-btn'>
         <PlusOutlined />  Yeni Qaime </Link>
 
 

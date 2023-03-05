@@ -1,28 +1,6 @@
 {
   "customers": [
     {
-      "id": 1,
-      "productId": 12345,
-      "products": [
-        {
-          "id": 1,
-          "productCount": 2,
-          "productName": "alma",
-          "price": 3,
-          "totalPrice": 0
-        },
-        {
-          "id": 2,
-          "productCount": 3,
-          "productName": "duyu",
-          "price": 4,
-          "totalPrice": 0
-        }
-      ],
-      "fullName": "Dadaşov Allahverdi",
-      "status": "xitam olunub"
-    },
-    {
       "id": 2,
       "productId": 12346,
       "fullName": "Qasımov Elməddin",
@@ -31,17 +9,68 @@
       "products": [
         {
           "id": 1,
-          "productCount": 2,
-          "productName": "alma",
+          "name": "duyu",
           "price": 3,
-          "totalPrice": 0
+          "total": 3,
+          "productCount": 1
+        },
+        {
+          "id": 3,
+          "name": "salmon baliq",
+          "price": 10,
+          "total": 10,
+          "productCount": 1
         },
         {
           "id": 2,
-          "productCount": 3,
-          "productName": "duyu",
-          "price": 4,
-          "totalPrice": 0
+          "name": "alma",
+          "price": 2,
+          "total": 2,
+          "productCount": 1
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "fullName": "Test",
+      "status": "gözləyir",
+      "productId": 23455,
+      "products": [
+        {
+          "id": 1,
+          "name": "duyu",
+          "price": 3,
+          "total": 3,
+          "productCount": 1
+        },
+        {
+          "id": 3,
+          "name": "salmon baliq",
+          "price": 10,
+          "total": 10,
+          "productCount": 1
+        },
+        {
+          "id": 2,
+          "name": "alma",
+          "price": 2,
+          "total": 2,
+          "productCount": 1
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "fullName": "azer aliyev",
+      "status": "gözləyir",
+      "productId": 23455,
+      "products": [
+        {
+          "id": 2,
+          "name": "alma",
+          "price": 2,
+          "total": 2,
+          "productCount": 1
         }
       ]
     }

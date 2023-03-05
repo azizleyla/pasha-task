@@ -5,12 +5,21 @@ export const CustomerApi = {
         const response = await baseApi.get("/customers");
         return response.data
     },
-    async deleteCustomer(id){
+    async deleteCustomer(id) {
         const response = await baseApi.delete(`/customers/${id}`)
         return response.data;
     },
-    async updateStatus({id,data}){
-       const response = await baseApi.put(`/customers/${id}`,data);
-       return response.data;
+    async updateStatus({ id, data }) {
+        const response = await baseApi.put(`/customers/${id}`, data);
+        return response.data;
+    },
+    async updateCustomer({ id, data }) {
+
+        const response = await baseApi.put(`/customers/${id}`, data);
+        return response.data;
+    },
+    async createCustomer(data) {
+        const response = await baseApi.post('/customers', data);
+        return response.data;
     }
 }
