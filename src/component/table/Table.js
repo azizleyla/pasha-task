@@ -77,10 +77,8 @@ const TableList = () => {
       title: 'Toplam məbləğ',
       dataIndex: "products",
       render: (value) =>
-        <p>{value?.reduce((a, c) => a + c.total, 0)}</p>
-
-
-
+      <p>{value.reduce((a,c) => a + c.total,0)}</p>
+   
     },
     {
       title: "Status",

@@ -2,7 +2,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Button, Select, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { CustomerApi } from '../api/customers.api'
 import { ApiQueryKeys } from '../constants/api.constants'
 
@@ -36,8 +36,11 @@ const CustomerForm = () => {
   const location = useLocation()
   const [selectedProduct, setSelectedProduct] = useState()
   const navigate = useNavigate()
-  const [dataSource, setDataSource] = useState([])
+  const [dataSource, setDataSource] = useState(location?.state?.products)
   const [fullName, setFullName] = useState()
+  const[numVal,setNumVal] =useState(1)
+  const[total,setTotal] = useState()
+  
   const columns = [
     {
       title: 'Mehsulun adi',
@@ -47,6 +50,14 @@ const CustomerForm = () => {
     {
       title: 'Miqdar',
       dataIndex: 'productCount',
+       render:(text,record,index) =>
+       <input  type="number" onChange={(e) =>{
+            setDataSource(dataSource.map((item,i) => i === index ? {...record,total:record.productCount * record.price,productCount:Number(e.target.value)} : item)
+            )
+        
+       }} value={record.productCount}/>
+       
+       ,
       sorter: (a, b) => a.productCount - b.productCount
     },
     {
@@ -57,10 +68,19 @@ const CustomerForm = () => {
     {
       title: 'Toplam mebleg',
       dataIndex: 'total',
+      render:(text,record) =>
+      <p>{record.productCount * record.price}</p>,
 
       sorter: (a, b) => a.total - b.total
     },
+    {
+      title:"Action",
+      dataIndex:"action",
+      render:() =>
+      <button>Sil</button>
+    }
   ]
+  
   const { data: customers } = useQuery({
     queryKey: [ApiQueryKeys.customers],
     queryFn: () => CustomerApi.getAll(),
@@ -72,8 +92,10 @@ const CustomerForm = () => {
 
 
   const handleChange = (value) => {
+ 
     const selectedProduct = products.find(item => item.id === value);
     setSelectedProduct(selectedProduct)
+
   }
   useEffect(() => {
     if (!isNaN(id)) {
@@ -93,7 +115,8 @@ const CustomerForm = () => {
   const selectedCustomer = data?.find(item => item.id === Number(id))
   const handleAdd = () => {
     console.log(dataSource)
-    setDataSource([...dataSource, { ...selectedProduct, total: selectedProduct.price * selectedProduct.productCount }])
+    setSelectedProduct({selectedProduct,total:selectedProduct.productCount + selectedProduct.price})
+    setDataSource([...dataSource, { ...selectedProduct,  total: selectedProduct.price  }])
   }
   const queryClient = useQueryClient()
   const updateCustomerMutation = useMutation(CustomerApi.updateCustomer, {
@@ -108,14 +131,13 @@ const CustomerForm = () => {
       navigate('/')
     }
   })
-
+  
   const handleSubmit = () => {
-
-
     const data = {
       ...location.state,
       products: dataSource
     }
+    console.log(data)
     if (!isNaN(id)) {
 
       updateCustomerMutation.mutate({ id, data })
@@ -125,16 +147,17 @@ const CustomerForm = () => {
         fullName,
         status: "gözləyir",
         productId: 23455,
-        products: dataSource
+        products: dataSource,
+        
       }
       addCustomerMutation.mutate(newData)
     }
-
   }
+ 
 
 
   return (
-    <div>
+    <div className='container'>
       <Select showSearch
         defaultValue={selectedCustomer?.fullName}
         style={{ width: 450 }}
@@ -151,7 +174,7 @@ const CustomerForm = () => {
           { value: 'ali mamedov', label: 'Ali Mamedov' }]} />
       <Select
 
-        style={{ width: 450 }}
+        style={{ width: 450 ,marginLeft:"50px"}}
         placeholder="Search to Select"
         optionFilterProp="children"
         filterOption={(input, option) => (option?.label ?? '').includes(input)}
@@ -167,8 +190,13 @@ const CustomerForm = () => {
       </Button>
       <div style={{ marginTop: "100px" }}>
         <Table dataSource={dataSource} columns={columns} />
-        <Button type="link">Imtina</Button>
-        <Button onClick={handleSubmit} type="primary">Tesdiqle</Button>
+        <div className='edit-btns'>
+          <span style={{color:"#0051ec",fontSize:"20px"}}>Toplam: <strong> ${dataSource.reduce((a,c) => a + c.total,0)}</strong></span>
+          <div style={{margin:"30px 0"}}>
+        <Button onClick={() => navigate("/")} className='cancel-btn' type="link">Imtina</Button>
+        <Button  className="save-btn" onClick={handleSubmit} type="primary">Yadda saxla</Button>
+        </div>
+        </div>
       </div >
     </div >
   )

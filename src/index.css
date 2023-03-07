@@ -206,3 +206,41 @@ nav {
 .ant-select-selector{
   height: 40px!important;
 }
+.edit-btns{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+.cancel-btn{
+  font-weight: 600;
+font-size: 18px;
+line-height: 18px;
+
+}
+.edit-btns{
+  margin-top: 50px;
+}
+.edit-btns span{
+  display: flex;
+  justify-content: flex-end;
+  
+}
+.edit-btns div{
+  display: flex;
+  justify-content: flex-end;
+}
+.save-btn{
+  padding: 15px 35px!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px !important;
+}
+.input-count{
+  background: #FFFFFF;
+border: 1px solid #EDEFF1;
+border-radius: 8px;
+height: 34px;
+padding: 6px 13px;
+width: 74px;
+}
