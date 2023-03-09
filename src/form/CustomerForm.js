@@ -51,9 +51,10 @@ const CustomerForm = () => {
       title: 'Miqdar',
       dataIndex: 'productCount',
        render:(text,record,index) =>
-       <input  type="number" onChange={(e) =>{
+       <input className='input-count' type="number" onChange={(e) =>{
             setDataSource(dataSource.map((item,i) => i === index ? {...record,total:record.productCount * record.price,productCount:Number(e.target.value)} : item)
             )
+            console.log(record.productCount)
         
        }} value={record.productCount}/>
        
@@ -76,10 +77,14 @@ const CustomerForm = () => {
     {
       title:"Action",
       dataIndex:"action",
-      render:() =>
-      <button>Sil</button>
+      render:(text,record) =>
+      <Button danger onClick={() => handleDeleteProduct(record.id)}>Sil</Button>
     }
   ]
+  const handleDeleteProduct = (recordId) =>{
+  
+    setDataSource(dataSource.filter(item => item.id!==recordId))
+  }
   
   const { data: customers } = useQuery({
     queryKey: [ApiQueryKeys.customers],
@@ -191,7 +196,7 @@ const CustomerForm = () => {
       <div style={{ marginTop: "100px" }}>
         <Table dataSource={dataSource} columns={columns} />
         <div className='edit-btns'>
-          <span style={{color:"#0051ec",fontSize:"20px"}}>Toplam: <strong> ${dataSource.reduce((a,c) => a + c.total,0)}</strong></span>
+          <span style={{color:"#0051ec",fontSize:"20px"}}>Toplam: <strong> ${dataSource?.reduce((a,c) => a + c.total,0)}</strong></span>
           <div style={{margin:"30px 0"}}>
         <Button onClick={() => navigate("/")} className='cancel-btn' type="link">Imtina</Button>
         <Button  className="save-btn" onClick={handleSubmit} type="primary">Yadda saxla</Button>

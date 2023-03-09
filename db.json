@@ -5,37 +5,7 @@
       "fullName": "azer aliyev",
       "status": "gözləyir",
       "productId": 23455,
-      "products": [
-        {
-          "id": 1,
-          "name": "duyu",
-          "price": 3,
-          "total": 12,
-          "productCount": 4
-        },
-        {
-          "id": 3,
-          "name": "salmon baliq",
-          "price": 10,
-          "total": 10,
-          "productCount": 1
-        }
-      ]
-    },
-    {
-      "id": 16,
-      "fullName": "azer aliyev",
-      "status": "gözləyir",
-      "productId": 23455,
-      "products": [
-        {
-          "id": 1,
-          "name": "duyu",
-          "price": 3,
-          "total": 3,
-          "productCount": 1
-        }
-      ]
+      "products": []
     }
   ]
 }
