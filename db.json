@@ -1,11 +1,71 @@
 {
   "customers": [
     {
-      "id": 6,
+      "id": 91,
+      "fullName": "ali mamedov",
+      "status": "təsdiqlənib",
+      "productId": 23455,
+      "products": [
+        {
+          "id": 3,
+          "name": "salmon baliq",
+          "price": 10,
+          "total": 30,
+          "productCount": 4
+        },
+        {
+          "id": 1,
+          "name": "duyu",
+          "price": 3,
+          "total": 6,
+          "productCount": 2
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "fullName": "leyla aziz",
+      "status": "xitam olunub",
+      "productId": 23455,
+      "products": [
+        {
+          "id": 2,
+          "name": "alma",
+          "price": 2,
+          "total": 8,
+          "productCount": 5
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "fullName": "ali mamedov",
+      "status": "gözləyir",
+      "productId": 23455,
+      "products": [
+        {
+          "id": 2,
+          "name": "alma",
+          "price": 2,
+          "total": 2,
+          "productCount": 1
+        }
+      ]
+    },
+    {
+      "id": 35,
       "fullName": "azer aliyev",
       "status": "gözləyir",
       "productId": 23455,
-      "products": []
+      "products": [
+        {
+          "id": 2,
+          "name": "alma",
+          "price": 2,
+          "total": 2,
+          "productCount": 1
+        }
+      ]
     }
   ]
 }

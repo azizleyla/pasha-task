@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Pagination, Table } from 'antd';
+import { Button, Input, Modal, Pagination, Select, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import DeleteModal from '../modal/DeleteModal';
 import { PlusOutlined } from "@ant-design/icons"
@@ -25,7 +25,7 @@ const TableList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState("")
-
+const[countQuery,setCountQuery] = useState()
   const [searchQuery, setSearchQuery] = useState("")
   const { data } = useQuery({
     queryKey: [ApiQueryKeys.customers],
@@ -96,7 +96,6 @@ const TableList = () => {
   ];
 
 
-
   useEffect(() => {
     if (searchQuery !== "") {
 
@@ -116,23 +115,68 @@ const TableList = () => {
     setIsModalOpen(false);
   };
 
+const productOptions = customers?.map(x => x?.products?.reduce((a,c) => a + c.productCount,0))
+const diff = [...new Set(productOptions)]
+const options = diff?.map(x =>{
+  const obj = {
+    value: x,
+    label:x
+  }
+  return obj
+})
+const statusOptions = [
+  {
+    value:"təsdiqlənib", label:"təsdiqlənib"
+  },
+  {
+    value:"xitam olunub", label:"xitam olunub"
+  },
+  {
+    value:"gözləyir", label:"gözləyir"
+  }
+]
 
+// const statusOptions = customers.map(x =>{
+//   const obj = {
+//     value:x.status,
+//     label:x.status
+//   }
+//   return obj
+// })
 
   const onChange = (pageNumber) => {
-
   };
+
+  const handleFilter =(value)=>{
+    setCountQuery(value)
+  }
+  useEffect(() =>{
+   if(countQuery!==""){
+
+      setCustomers(data?.filter(x => x.status === countQuery))
+   }else{
+    setCustomers(data || [])
+   }
+  },[countQuery])
+
+console.log(countQuery)
   return (
     <div className='table-container'>
       <Link to="/create" type="primary" className='add-btn'>
         <PlusOutlined />  Yeni Qaime </Link>
-
-
       <Search onChange={(e) => setSearchQuery(e.target.value)}
         allowClear
         value={searchQuery}
         placeholder='Qaimə nömrəsi, müştəri adı üzrə axtar' />
-
-      <Table pagination={{ defaultPageSize: 10, showQuickJumper: true, total: customers.length, locale: { jump_to: "Səhifəyə get" } }} locale={{ jump_to: "sehife" }} columns={columns} dataSource={customers} onChange={onChange} />
+        <div style={{marginBottom:"20px"}}>
+          
+      
+      <Select  options={options}  defaultValue="Seç"
+      style={{ width: 120}} />
+      <Select onChange={handleFilter}   options={statusOptions}  defaultValue="Status"
+      style={{ width: 120,marginLeft:"50px"}} />
+      </div>
+      <Table pagination={{ defaultPageSize: 10, showQuickJumper: true, total: customers?.length, locale: { jump_to: "Səhifəyə get" } }} locale={{ jump_to: "sehife" }} columns={columns} dataSource={customers} onChange={onChange} />
       <Modal open={isModalOpen} onCancel={handleCancel} footer={[
         <Button key="1" onClick={() => setIsModalOpen(false)}>İmtina</Button>,
         <Button key="2" type='primary' onClick={handleDeleteItem}>Sil</Button>,
