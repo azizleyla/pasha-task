@@ -5,6 +5,10 @@ export const CustomerApi = {
         const response = await baseApi.get("/customers");
         return response.data
     },
+    async getFilterer({ statusQuery, searchQuery }) {
+        const response = await baseApi.get(`/customers?status=${statusQuery}&&fullName_like=${searchQuery}`)
+        return response.data
+    },
     async deleteCustomer(id) {
         const response = await baseApi.delete(`/customers/${id}`)
         return response.data;
@@ -22,4 +26,5 @@ export const CustomerApi = {
         const response = await baseApi.post('/customers', data);
         return response.data;
     }
+
 }

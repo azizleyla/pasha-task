@@ -1,49 +1,51 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter as Router } from 'react-router-dom';
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const mutationCache = new MutationCache({
   onError: (error, _variables, _context, mutation) => {
-     // If this mutation has an onError defined, skip this
-     if (mutation.options.onError) return;
+    // If this mutation has an onError defined, skip this
+    if (mutation.options.onError) return;
 
-     // any error handling code...
-     console.error(error);
-  }
+    // any error handling code...
+    console.error(error);
+  },
 });
 
 const queryCache = new QueryCache({
   onError: (error, _query) => {
-     console.log(error);
-  }
-})
-
+    console.log(error);
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
-     queries: {
-        refetchOnWindowFocus: false,
-     },
+    queries: {
+      refetchOnWindowFocus: false,
+    },
   },
   mutationCache,
   queryCache,
 });
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <Router>
-    <App />
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <App />
+      </Router>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

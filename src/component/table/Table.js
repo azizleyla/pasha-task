@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Pagination, Select, Table } from 'antd';
+import { Button, Input, Modal, Select, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import DeleteModal from '../modal/DeleteModal';
 import { PlusOutlined } from "@ant-design/icons"
@@ -10,9 +10,6 @@ import { Link } from 'react-router-dom';
 
 const { Search } = Input
 
-const onChange = (pagination, filters, sorter, extra) => {
-
-};
 const statusMap = {
   "təsdiqlənib": "submit",
   "xitam olunub": "cancelled",
@@ -25,8 +22,9 @@ const TableList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState("")
-const[countQuery,setCountQuery] = useState()
+  const [statusQuery, setStatusQuery] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
+
   const { data } = useQuery({
     queryKey: [ApiQueryKeys.customers],
     queryFn: () => CustomerApi.getAll(),
@@ -36,7 +34,7 @@ const[countQuery,setCountQuery] = useState()
   const [customers, setCustomers] = useState(data || [])
 
   const queryClient = useQueryClient()
-  console.log('dddd', data)
+
   const handleDeleteMutation = useMutation(CustomerApi.deleteCustomer, {
     onSuccess: () => {
       queryClient.invalidateQueries([ApiQueryKeys.customers])
@@ -44,7 +42,6 @@ const[countQuery,setCountQuery] = useState()
     }
   })
   const handleDelete = (value) => {
-
     setIsModalOpen(true)
     setSelectedItem(value)
 
@@ -77,8 +74,8 @@ const[countQuery,setCountQuery] = useState()
       title: 'Toplam məbləğ',
       dataIndex: "products",
       render: (value) =>
-      <p>{value.reduce((a,c) => a + c.total,0)}</p>
-   
+        <p>{value.reduce((a, c) => a + c.total, 0)}</p>
+
     },
     {
       title: "Status",
@@ -94,12 +91,15 @@ const[countQuery,setCountQuery] = useState()
 
     }
   ];
-
+  const { data: filteredData } = useQuery({
+    queryKey: [ApiQueryKeys.customers, { statusQuery, searchQuery }],
+    queryFn: ({ queryKey }) => CustomerApi.getFilterer(queryKey[1])
+  })
 
   useEffect(() => {
-    if (searchQuery !== "") {
+    if (searchQuery !== "" || statusQuery !== "") {
+      setCustomers(filteredData || [])
 
-      setCustomers(data.filter(x => x.fullName.toLowerCase().includes(searchQuery.toLowerCase())))
     } else {
       setCustomers(data || [])
     }
@@ -115,51 +115,38 @@ const[countQuery,setCountQuery] = useState()
     setIsModalOpen(false);
   };
 
-const productOptions = customers?.map(x => x?.products?.reduce((a,c) => a + c.productCount,0))
-const diff = [...new Set(productOptions)]
-const options = diff?.map(x =>{
-  const obj = {
-    value: x,
-    label:x
-  }
-  return obj
-})
-const statusOptions = [
-  {
-    value:"təsdiqlənib", label:"təsdiqlənib"
-  },
-  {
-    value:"xitam olunub", label:"xitam olunub"
-  },
-  {
-    value:"gözləyir", label:"gözləyir"
-  }
-]
+  const productOptions = customers?.map(x => x?.products?.reduce((a, c) => a + c.productCount, 0))
+  const diff = [...new Set(productOptions)]
+  const options = diff?.map(x => {
+    const obj = {
+      value: x,
+      label: x
+    }
+    return obj
+  })
+  const statusOptions = [
+    {
+      value: "təsdiqlənib", label: "təsdiqlənib"
+    },
+    {
+      value: "xitam olunub", label: "xitam olunub"
+    },
+    {
+      value: "gözləyir", label: "gözləyir"
+    }
+  ]
 
-// const statusOptions = customers.map(x =>{
-//   const obj = {
-//     value:x.status,
-//     label:x.status
-//   }
-//   return obj
-// })
+
 
   const onChange = (pageNumber) => {
   };
 
-  const handleFilter =(value)=>{
-    setCountQuery(value)
+  const handleFilter = (value) => {
+    setStatusQuery(value)
   }
-  useEffect(() =>{
-   if(countQuery!==""){
 
-      setCustomers(data?.filter(x => x.status === countQuery))
-   }else{
-    setCustomers(data || [])
-   }
-  },[countQuery])
 
-console.log(countQuery)
+
   return (
     <div className='table-container'>
       <Link to="/create" type="primary" className='add-btn'>
@@ -168,13 +155,11 @@ console.log(countQuery)
         allowClear
         value={searchQuery}
         placeholder='Qaimə nömrəsi, müştəri adı üzrə axtar' />
-        <div style={{marginBottom:"20px"}}>
-          
-      
-      <Select  options={options}  defaultValue="Seç"
-      style={{ width: 120}} />
-      <Select onChange={handleFilter}   options={statusOptions}  defaultValue="Status"
-      style={{ width: 120,marginLeft:"50px"}} />
+      <div style={{ marginBottom: "20px" }}>
+        <Select options={options} defaultValue="Seç"
+          style={{ width: 120 }} />
+        <Select onChange={handleFilter} options={statusOptions} defaultValue="Status"
+          style={{ width: 120, marginLeft: "50px" }} />
       </div>
       <Table pagination={{ defaultPageSize: 10, showQuickJumper: true, total: customers?.length, locale: { jump_to: "Səhifəyə get" } }} locale={{ jump_to: "sehife" }} columns={columns} dataSource={customers} onChange={onChange} />
       <Modal open={isModalOpen} onCancel={handleCancel} footer={[
@@ -184,7 +169,6 @@ console.log(countQuery)
         <p>Bu qaiməni silmək istədiyinizdən əminsiniz?</p>
       </Modal>
       <StatusModal setSelectedItem={setSelectedItem} selectedItem={selectedItem} isOpenStatusModal={isOpenStatusModal} setIsOpenStatusModal={setIsOpenStatusModal} />
-
 
     </div>
   )

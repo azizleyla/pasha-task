@@ -108,7 +108,7 @@ body, .ant-table {
   align-items: center;
   margin-left: auto;
   margin-bottom: 20px;
-  color:white;
+  color: white;
   width: 150px;
   padding: 10px 0;
   align-items: center;
@@ -116,14 +116,15 @@ body, .ant-table {
   text-decoration: none;
   border-radius: 5px;
 }
-.title{
-  font-weight: 600;
-font-size: 20px;
-line-height: 22px;
-/* identical to box height, or 110% */
-margin-bottom: 20px;
 
-color: #266AEB;
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 22px;
+  /* identical to box height, or 110% */
+  margin-bottom: 20px;
+
+  color: #266AEB;
 
 }
 
@@ -191,6 +192,11 @@ color: #266AEB;
 
 }
 
+.wrapper {
+  display: flex;
+  gap: 100px;
+}
+
 .table-container .ant-input::placeholder {
   font-size: 16;
   line-height: 20px;
@@ -203,44 +209,52 @@ nav {
   justify-content: center;
   align-items: center;
 }
-.ant-select-selector{
-  height: 40px!important;
+
+.ant-select-selector {
+  height: 40px !important;
 }
-.edit-btns{
+
+.edit-btns {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
 }
-.cancel-btn{
+
+.cancel-btn {
   font-weight: 600;
-font-size: 18px;
-line-height: 18px;
+  font-size: 18px;
+  line-height: 18px;
 
 }
-.edit-btns{
+
+.edit-btns {
   margin-top: 50px;
 }
-.edit-btns span{
+
+.edit-btns span {
   display: flex;
   justify-content: flex-end;
-  
+
 }
-.edit-btns div{
+
+.edit-btns div {
   display: flex;
   justify-content: flex-end;
 }
-.save-btn{
-  padding: 15px 35px!important;
+
+.save-btn {
+  padding: 15px 35px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 42px !important;
 }
-.input-count{
+
+.input-count {
   background: #FFFFFF;
-border: 1px solid #EDEFF1;
-border-radius: 8px;
-height: 34px;
-padding: 6px 13px;
-width: 74px;
+  border: 1px solid #EDEFF1;
+  border-radius: 8px;
+  height: 34px;
+  padding: 6px 13px;
+  width: 74px;
 }
