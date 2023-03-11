@@ -96,15 +96,15 @@ const TableList = () => {
     queryFn: ({ queryKey }) => CustomerApi.getFilterer(queryKey[1])
   })
 
-  useEffect(() => {
-    if (searchQuery !== "" || statusQuery !== "") {
-      setCustomers(filteredData || [])
+  // useEffect(() => {
+  //   if (searchQuery !== "" || statusQuery !== "") {
+  //     setCustomers(filteredData || [])
 
-    } else {
-      setCustomers(data || [])
-    }
+  //   } else {
+  //     setCustomers(data || [])
+  //   }
 
-  }, [data, searchQuery])
+  // }, [data, searchQuery])
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -145,6 +145,14 @@ const TableList = () => {
     setStatusQuery(value)
   }
 
+  useEffect(() => {
+    if (searchQuery !== "") {
+      const filteredCustomers = data.filter(x => x.fullName.toLowerCase().includes(searchQuery.toLowerCase()))
+      setCustomers(filteredCustomers)
+    } else {
+      setCustomers(data)
+    }
+  }, [searchQuery, data])
 
 
   return (
@@ -169,7 +177,6 @@ const TableList = () => {
         <p>Bu qaiməni silmək istədiyinizdən əminsiniz?</p>
       </Modal>
       <StatusModal setSelectedItem={setSelectedItem} selectedItem={selectedItem} isOpenStatusModal={isOpenStatusModal} setIsOpenStatusModal={setIsOpenStatusModal} />
-
     </div>
   )
 }

@@ -38,9 +38,9 @@ const CustomerForm = () => {
   const navigate = useNavigate()
   const [dataSource, setDataSource] = useState(location?.state?.products)
   const [fullName, setFullName] = useState()
-  const[numVal,setNumVal] =useState(1)
-  const[total,setTotal] = useState()
-  
+  const [numVal, setNumVal] = useState(1)
+  const [total, setTotal] = useState()
+
   const columns = [
     {
       title: 'Mehsulun adi',
@@ -50,15 +50,15 @@ const CustomerForm = () => {
     {
       title: 'Miqdar',
       dataIndex: 'productCount',
-       render:(text,record,index) =>
-       <input className='input-count' type="number" onChange={(e) =>{
-            setDataSource(dataSource.map((item,i) => i === index ? {...record,total:record.productCount * record.price,productCount:Number(e.target.value)} : item)
-            )
-            console.log(record.productCount)
-        
-       }} value={record.productCount}/>
-       
-       ,
+      render: (text, record, index) =>
+        <input className='input-count' type="number" onChange={(e) => {
+          setDataSource(dataSource.map((item, i) => i === index ? { ...record, total: record.productCount * record.price, productCount: Number(e.target.value) } : item)
+          )
+          console.log(record.productCount)
+
+        }} value={record.productCount} />
+
+      ,
       sorter: (a, b) => a.productCount - b.productCount
     },
     {
@@ -69,23 +69,23 @@ const CustomerForm = () => {
     {
       title: 'Toplam mebleg',
       dataIndex: 'total',
-      render:(text,record) =>
-      <p>{record.productCount * record.price}</p>,
+      render: (text, record) =>
+        <p>{record.productCount * record.price}</p>,
 
       sorter: (a, b) => a.total - b.total
     },
     {
-      title:"Action",
-      dataIndex:"action",
-      render:(text,record) =>
-      <Button danger onClick={() => handleDeleteProduct(record.id)}>Sil</Button>
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) =>
+        <Button danger onClick={() => handleDeleteProduct(record.id)}>Sil</Button>
     }
   ]
-  const handleDeleteProduct = (recordId) =>{
-  
-    setDataSource(dataSource.filter(item => item.id!==recordId))
+  const handleDeleteProduct = (recordId) => {
+
+    setDataSource(dataSource.filter(item => item.id !== recordId))
   }
-  
+
   const { data: customers } = useQuery({
     queryKey: [ApiQueryKeys.customers],
     queryFn: () => CustomerApi.getAll(),
@@ -97,7 +97,7 @@ const CustomerForm = () => {
 
 
   const handleChange = (value) => {
- 
+
     const selectedProduct = products.find(item => item.id === value);
     setSelectedProduct(selectedProduct)
 
@@ -120,8 +120,8 @@ const CustomerForm = () => {
   const selectedCustomer = data?.find(item => item.id === Number(id))
   const handleAdd = () => {
     console.log(dataSource)
-    setSelectedProduct({selectedProduct,total:selectedProduct.productCount + selectedProduct.price})
-    setDataSource([...dataSource, { ...selectedProduct,  total: selectedProduct.price  }])
+    setSelectedProduct({ selectedProduct, total: selectedProduct.productCount + selectedProduct.price })
+    setDataSource([...dataSource, { ...selectedProduct, total: selectedProduct.price }])
   }
   const queryClient = useQueryClient()
   const updateCustomerMutation = useMutation(CustomerApi.updateCustomer, {
@@ -136,7 +136,7 @@ const CustomerForm = () => {
       navigate('/')
     }
   })
-  
+
   const handleSubmit = () => {
     const data = {
       ...location.state,
@@ -147,18 +147,19 @@ const CustomerForm = () => {
 
       updateCustomerMutation.mutate({ id, data })
     } else {
+      var randomNum = Math.floor(Math.random() * 90000) + 10000;
       const newData = {
         id: Math.trunc(Number(Math.random() * 100)),
         fullName,
         status: "gözləyir",
-        productId: 23455,
+        productId: randomNum,
         products: dataSource,
-        
+
       }
       addCustomerMutation.mutate(newData)
     }
   }
- 
+
 
 
   return (
@@ -179,7 +180,7 @@ const CustomerForm = () => {
           { value: 'ali mamedov', label: 'Ali Mamedov' }]} />
       <Select
 
-        style={{ width: 450 ,marginLeft:"50px"}}
+        style={{ width: 450, marginLeft: "50px" }}
         placeholder="Search to Select"
         optionFilterProp="children"
         filterOption={(input, option) => (option?.label ?? '').includes(input)}
@@ -196,11 +197,11 @@ const CustomerForm = () => {
       <div style={{ marginTop: "100px" }}>
         <Table dataSource={dataSource} columns={columns} />
         <div className='edit-btns'>
-          <span style={{color:"#0051ec",fontSize:"20px"}}>Toplam: <strong> ${dataSource?.reduce((a,c) => a + c.total,0)}</strong></span>
-          <div style={{margin:"30px 0"}}>
-        <Button onClick={() => navigate("/")} className='cancel-btn' type="link">Imtina</Button>
-        <Button  className="save-btn" onClick={handleSubmit} type="primary">Yadda saxla</Button>
-        </div>
+          <span style={{ color: "#0051ec", fontSize: "20px" }}>Toplam: <strong> ${dataSource?.reduce((a, c) => a + c.total, 0)}</strong></span>
+          <div style={{ margin: "30px 0" }}>
+            <Button onClick={() => navigate("/")} className='cancel-btn' type="link">Imtina</Button>
+            <Button className="save-btn" onClick={handleSubmit} type="primary">Yadda saxla</Button>
+          </div>
         </div>
       </div >
     </div >
